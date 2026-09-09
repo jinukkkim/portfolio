@@ -41,7 +41,7 @@ export default function ExperienceSection() {
             key={entry.period + entry.title}
             delay={i * 0.1}
             className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8 md:gap-12 py-6 sm:py-8 md:py-10"
-            style={{ borderTop: '1px solid rgba(12, 12, 12, 0.15)' }}
+            style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(12, 12, 12, 0.15)' }}
           >
             <span
               className="shrink-0 font-black leading-none sm:w-[220px] md:w-[300px]"

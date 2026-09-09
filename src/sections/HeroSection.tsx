@@ -14,8 +14,13 @@ const PORTRAIT =
 
 // feel knobs for the cursor-follow. padding = how far from the portrait the cursor
 // still pulls it (2000px ≈ the whole viewport); strength = divisor, higher is subtler.
-// maxOffset caps the travel: the portrait sits flush at the hero's bottom edge, and the
-// marquee below only clears it by 128px (sm) / 160px (md+), so it must never exceed that.
+// maxOffset caps the travel — the pull grows with raw distance, so uncapped it drags the
+// portrait onto whatever section follows. from sm up the portrait sits flush at the hero's
+// bottom edge and its wrapper is z-10, so any overshoot paints over AboutSection rather
+// than being covered by it. 80px is safe there: About's centred block starts ~300px below
+// its own top, and About's top decor sits at the far left/right, clear of the portrait's
+// column. below sm the portrait is centred in the hero instead of flush, so it never
+// reaches the boundary at all.
 const MAGNET_PADDING = 2000
 const MAGNET_STRENGTH = 6
 const MAGNET_MAX_OFFSET = 80

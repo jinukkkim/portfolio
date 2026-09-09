@@ -119,7 +119,7 @@ export default function SkillsSection() {
             key={group.heading}
             delay={i * 0.05}
             className="flex flex-col sm:flex-row sm:items-baseline gap-4 sm:gap-8 md:gap-12 pt-6 sm:pt-8"
-            style={{ borderTop: '1px solid rgba(12, 12, 12, 0.15)' }}
+            style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(12, 12, 12, 0.15)' }}
           >
             <h3
               className="shrink-0 font-medium uppercase tracking-widest sm:w-[160px] md:w-[200px]"
