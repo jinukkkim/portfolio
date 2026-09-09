@@ -3,38 +3,37 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import type { MotionValue } from 'framer-motion'
 import LiveProjectButton from '../components/LiveProjectButton'
 
-const CDN = (file: string) =>
-  `https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2F${file}&w=1280&q=85`
+type Link = { label: string; href: string }
 
-const PROJECTS = [
+const PROJECTS: {
+  number: string
+  name: string
+  category: string
+  detail: string
+  links: Link[]
+}[] = [
   {
     number: '01',
-    name: 'Nextlevel Studio',
-    category: 'Client',
-    images: [
-      CDN('hf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png'),
-      CDN('hf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8.png'),
-      CDN('hf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327.png'),
-    ],
+    name: 'Codedang',
+    category: 'SKKUDING',
+    detail: '온라인 코딩 학습 및 채점 사이트',
+    links: [{ label: 'Live Project', href: 'https://codedang.com/' }],
   },
   {
     number: '02',
-    name: 'Aura Brand Identity',
-    category: 'Personal',
-    images: [
-      CDN('hf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f.png'),
-      CDN('hf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1.png'),
-      CDN('hf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea.png'),
-    ],
+    name: 'On-Premise RAG Chatbot',
+    category: 'PCN · 산학협력',
+    detail: '사내망에서 동작하는 B2B / B2G RAG 챗봇',
+    links: [],
   },
   {
     number: '03',
-    name: 'Solaris Digital',
-    category: 'Client',
-    images: [
-      CDN('hf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f.png'),
-      CDN('hf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b.png'),
-      CDN('hf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee.png'),
+    name: 'Exhibition Congestion Prediction',
+    category: 'Personal',
+    detail: '전시장 혼잡도 예측 서비스',
+    links: [
+      { label: 'Live Project', href: 'https://exhibition-traffic.duckdns.org/' },
+      { label: 'GitHub', href: 'https://github.com/jinukkkim/exhibition-congestion-prediction' },
     ],
   },
 ]
@@ -43,6 +42,22 @@ const RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]'
 
 // px each card sits below the one above it, for the stacked-paper look
 const STAGGER = 28
+
+// placeholder until the real screenshots land
+function ImageSlot({ className = '' }: { className?: string }) {
+  return (
+    <div
+      className={`flex items-center justify-center bg-white ${RADIUS} ${className}`}
+    >
+      <span
+        className="px-3 text-center font-light tracking-wide"
+        style={{ color: '#0C0C0C', opacity: 0.35, fontSize: 'clamp(0.7rem, 1.2vw, 0.95rem)' }}
+      >
+        이미지 업로드 예정
+      </span>
+    </div>
+  )
+}
 
 type ProjectCardProps = {
   project: (typeof PROJECTS)[number]
@@ -56,9 +71,10 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
   const targetScale = 1 - (total - 1 - index) * 0.03
   const scale = useTransform(progress, [index / total, 1], [1, targetScale])
 
-  // the sticky wrapper is exactly one viewport and the card is capped below that, so a card
-  // can never grow past its own slot and get clipped by the one stacking after it. the cap
-  // also subtracts this card's stagger, so the offset never pushes it off the bottom.
+  // the sticky wrapper is exactly one viewport and the card is sized below that, so a card
+  // can never grow past its own slot and get clipped by the one stacking after it. the height
+  // also subtracts this card's stagger, so the offset never pushes it off the bottom. it is a
+  // fixed height, not a cap: the placeholder slots have no intrinsic size to push the card open.
   return (
     <div className="h-screen sticky top-0 flex items-center justify-center">
       <motion.article
@@ -66,7 +82,7 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
         style={{
           scale,
           top: `${index * STAGGER}px`,
-          maxHeight: `calc(88vh - ${index * STAGGER}px)`,
+          height: `calc(88vh - ${index * STAGGER}px)`,
           background: '#0C0C0C',
         }}
       >
@@ -88,38 +104,28 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
               >
                 {project.name}
               </h3>
+              <p className="text-[#D7E2EA]/50 font-light text-xs sm:text-sm md:text-base truncate">
+                {project.detail}
+              </p>
             </div>
           </div>
 
-          <LiveProjectButton className="hidden sm:block" />
+          <div className="hidden sm:flex flex-col items-end gap-2">
+            {project.links.map((link) => (
+              <LiveProjectButton key={link.href} href={link.href} label={link.label} />
+            ))}
+          </div>
         </div>
 
         <div className="flex-1 min-h-0 flex gap-3 sm:gap-4 items-stretch">
-          {/* the two stacked images split the leftover height 2:3 instead of taking a
+          {/* the two stacked slots split the leftover height 2:3 instead of taking a
               fixed size, so the card shrinks to fit short viewports */}
           <div className="w-[40%] flex flex-col gap-3 sm:gap-4">
-            <img
-              src={project.images[0]}
-              alt={`${project.name} 1`}
-              loading="lazy"
-              className={`w-full flex-[2] min-h-0 object-cover ${RADIUS}`}
-            />
-            <img
-              src={project.images[1]}
-              alt={`${project.name} 2`}
-              loading="lazy"
-              className={`w-full flex-[3] min-h-0 object-cover ${RADIUS}`}
-            />
+            <ImageSlot className="w-full flex-[2] min-h-0" />
+            <ImageSlot className="w-full flex-[3] min-h-0" />
           </div>
 
-          <div className="w-[60%]">
-            <img
-              src={project.images[2]}
-              alt={`${project.name} 3`}
-              loading="lazy"
-              className={`w-full h-full object-cover ${RADIUS}`}
-            />
-          </div>
+          <ImageSlot className="w-[60%] min-h-0" />
         </div>
       </motion.article>
     </div>
@@ -135,7 +141,7 @@ export default function ProjectsSection() {
 
   return (
     <section
-      id="projects"
+      id="work"
       ref={ref}
       className={`relative z-10 -mt-10 sm:-mt-12 md:-mt-14 px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-32 pb-20 ${RADIUS.replace(/rounded-/g, 'rounded-t-')}`}
       style={{ background: '#0C0C0C' }}
@@ -144,7 +150,7 @@ export default function ProjectsSection() {
         className="hero-heading text-center font-black uppercase leading-none tracking-tight mb-16 sm:mb-20 md:mb-28"
         style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
       >
-        Project
+        Work
       </h2>
 
       {PROJECTS.map((project, i) => (

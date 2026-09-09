@@ -1,5 +1,4 @@
 import AnimatedText from '../components/AnimatedText'
-import ContactButton from '../components/ContactButton'
 import FadeIn from '../components/FadeIn'
 
 const BASE =
@@ -41,7 +40,7 @@ const DECOR = [
 ]
 
 const ABOUT_TEXT =
-  "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!"
+  'Ideas from every direction, grounded in solid fundamentals and real domain knowledge.'
 
 export default function AboutSection() {
   return (
@@ -63,26 +62,22 @@ export default function AboutSection() {
         </FadeIn>
       ))}
 
-      <div className="relative z-10 flex flex-col items-center gap-16 sm:gap-20 md:gap-24">
-        <div className="flex flex-col items-center gap-10 sm:gap-14 md:gap-16">
-          <FadeIn
-            as="h2"
-            delay={0}
-            y={40}
-            className="hero-heading text-center font-black uppercase leading-none tracking-tight"
-            style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
-          >
-            About me
-          </FadeIn>
+      <div className="relative z-10 flex flex-col items-center gap-10 sm:gap-14 md:gap-16">
+        <FadeIn
+          as="h2"
+          delay={0}
+          y={40}
+          className="hero-heading text-center font-black uppercase leading-none tracking-tight"
+          style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
+        >
+          About me
+        </FadeIn>
 
-          <AnimatedText
-            text={ABOUT_TEXT}
-            className="text-[#D7E2EA] font-medium text-center leading-relaxed max-w-[560px]"
-            style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
-          />
-        </div>
-
-        <ContactButton />
+        <AnimatedText
+          text={ABOUT_TEXT}
+          className="text-[#D7E2EA] font-medium text-center leading-relaxed max-w-[560px]"
+          style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
+        />
       </div>
     </section>
   )
