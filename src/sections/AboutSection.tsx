@@ -1,3 +1,4 @@
+import { SECTION_HEADING, SECTION_HEADING_SIZE } from '../theme'
 import AnimatedText from '../components/AnimatedText'
 import FadeIn from '../components/FadeIn'
 
@@ -67,8 +68,8 @@ export default function AboutSection() {
           as="h2"
           delay={0}
           y={40}
-          className="hero-heading text-center font-black uppercase leading-none tracking-tight"
-          style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
+          className={`hero-heading ${SECTION_HEADING} leading-none tracking-tight`}
+          style={{ fontSize: SECTION_HEADING_SIZE }}
         >
           About me
         </FadeIn>

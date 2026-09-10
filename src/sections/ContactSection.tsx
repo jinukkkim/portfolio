@@ -1,3 +1,4 @@
+import { SECTION_HEADING, SECTION_HEADING_SIZE } from '../theme'
 import FadeIn from '../components/FadeIn'
 import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '../contact'
 
@@ -20,8 +21,8 @@ export default function ContactSection() {
       <FadeIn
         as="h2"
         y={40}
-        className="hero-heading text-center font-black uppercase leading-none tracking-tight"
-        style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
+        className={`hero-heading ${SECTION_HEADING} leading-none tracking-tight`}
+        style={{ fontSize: SECTION_HEADING_SIZE }}
       >
         Contact
       </FadeIn>

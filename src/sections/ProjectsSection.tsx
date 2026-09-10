@@ -1,3 +1,4 @@
+import { SECTION_HEADING, SECTION_HEADING_SIZE } from '../theme'
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import type { MotionValue } from 'framer-motion'
@@ -86,7 +87,7 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
           background: '#0C0C0C',
         }}
       >
-        <div className="shrink-0 flex items-center justify-between gap-4 pb-4 sm:pb-6 px-2 sm:px-4">
+        <div className="shrink-0 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 pb-4 sm:pb-6 px-2 sm:px-4">
           <div className="flex items-center gap-4 sm:gap-6 min-w-0">
             <span
               className="shrink-0 font-black leading-none text-[#D7E2EA]"
@@ -110,7 +111,7 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
             </div>
           </div>
 
-          <div className="hidden sm:flex flex-col items-end gap-2">
+          <div className="flex flex-row flex-wrap gap-2 sm:flex-col sm:items-end">
             {project.links.map((link) => (
               <LiveProjectButton key={link.href} href={link.href} label={link.label} />
             ))}
@@ -118,8 +119,8 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
         </div>
 
         <div className="flex-1 min-h-0 flex gap-3 sm:gap-4 items-stretch">
-          {/* the two stacked slots split the leftover height 2:3 instead of taking a
-              fixed size, so the card shrinks to fit short viewports */}
+          {/* the slots have no intrinsic size, so they take whatever the card's fixed
+              height leaves over — the left column splits its share 2:3 */}
           <div className="w-[40%] flex flex-col gap-3 sm:gap-4">
             <ImageSlot className="w-full flex-[2] min-h-0" />
             <ImageSlot className="w-full flex-[3] min-h-0" />
@@ -147,8 +148,8 @@ export default function ProjectsSection() {
       style={{ background: '#0C0C0C' }}
     >
       <h2
-        className="hero-heading text-center font-black uppercase leading-none tracking-tight mb-16 sm:mb-20 md:mb-28"
-        style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
+        className={`hero-heading ${SECTION_HEADING} leading-none tracking-tight mb-16 sm:mb-20 md:mb-28`}
+        style={{ fontSize: SECTION_HEADING_SIZE }}
       >
         Work
       </h2>

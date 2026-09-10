@@ -1,3 +1,4 @@
+import { SECTION_DIVIDER, SECTION_HEADING, SECTION_HEADING_SIZE } from '../theme'
 import FadeIn from '../components/FadeIn'
 
 type Entry = { period: string; title: string; detail: string }
@@ -29,8 +30,8 @@ export default function ExperienceSection() {
       style={{ background: '#FFFFFF' }}
     >
       <h2
-        className="text-center font-black uppercase mb-16 sm:mb-20 md:mb-28"
-        style={{ color: '#0C0C0C', fontSize: 'clamp(3rem, 12vw, 160px)' }}
+        className={`${SECTION_HEADING} mb-16 sm:mb-20 md:mb-28`}
+        style={{ color: '#0C0C0C', fontSize: SECTION_HEADING_SIZE }}
       >
         Experience
       </h2>
@@ -41,7 +42,7 @@ export default function ExperienceSection() {
             key={entry.period + entry.title}
             delay={i * 0.1}
             className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8 md:gap-12 py-6 sm:py-8 md:py-10"
-            style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(12, 12, 12, 0.15)' }}
+            style={{ borderTop: i === 0 ? 'none' : SECTION_DIVIDER }}
           >
             <span
               className="shrink-0 font-black leading-none sm:w-[220px] md:w-[300px]"

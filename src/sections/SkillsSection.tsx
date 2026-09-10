@@ -1,3 +1,4 @@
+import { SECTION_DIVIDER, SECTION_HEADING, SECTION_HEADING_SIZE } from '../theme'
 import FadeIn from '../components/FadeIn'
 
 // icon = a filename in public/icons (Simple Icons, self-hosted). omit it and the
@@ -76,6 +77,7 @@ function Chip({ skill }: { skill: Skill }) {
         <img
           src={`/icons/${skill.icon}.svg`}
           alt=""
+          loading="lazy"
           className="w-5 h-5 shrink-0 object-contain"
         />
       ) : (
@@ -107,8 +109,8 @@ export default function SkillsSection() {
       style={{ background: '#FFFFFF' }}
     >
       <h2
-        className="text-center font-black uppercase mb-16 sm:mb-20 md:mb-28"
-        style={{ color: '#0C0C0C', fontSize: 'clamp(3rem, 12vw, 160px)' }}
+        className={`${SECTION_HEADING} mb-16 sm:mb-20 md:mb-28`}
+        style={{ color: '#0C0C0C', fontSize: SECTION_HEADING_SIZE }}
       >
         Skills
       </h2>
@@ -119,7 +121,7 @@ export default function SkillsSection() {
             key={group.heading}
             delay={i * 0.05}
             className="flex flex-col sm:flex-row sm:items-baseline gap-4 sm:gap-8 md:gap-12 pt-6 sm:pt-8"
-            style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(12, 12, 12, 0.15)' }}
+            style={{ borderTop: i === 0 ? 'none' : SECTION_DIVIDER }}
           >
             <h3
               className="shrink-0 font-medium uppercase tracking-widest sm:w-[160px] md:w-[200px]"
